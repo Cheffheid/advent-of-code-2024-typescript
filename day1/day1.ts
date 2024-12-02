@@ -4,7 +4,9 @@ function main() {
   const data = formatData(readInput());
 
   const distance = get_distance_from_pairs(data);
+  const similarity = get_similarity_from_pairs(data);
   console.log(`answer for part 1: ${distance}`);
+  console.log(`answer for part 2: ${similarity}`);
 }
 
 function readInput() {
@@ -56,6 +58,16 @@ function create_pairs_array(data: number[][]) {
   return id_pairs;
 }
 
+function count_occurrences(ids: number[][]) {
+  const counts = new Map();
+
+  for (const id of ids) {
+    counts.set(id[1], (counts.get(id[1]) || 0) + 1);
+  }
+
+  return counts;
+}
+
 /**
  * Calculate the sum of the distances of each id pair to get the answer for part 1.
  * @param pairs Nested array of id pair arrays.
@@ -69,6 +81,24 @@ function get_distance_from_pairs(pairs: number[][]) {
   });
 
   return distance;
+}
+
+/**
+ * Calculate the similarity score of the ids arrays to get the answer for part 2.
+ * @param pairs
+ * @returns number
+ */
+function get_similarity_from_pairs(pairs: number[][]) {
+  let similarity = 0;
+  const counter = count_occurrences(pairs);
+
+  for (const ids of pairs) {
+    if (counter.get(ids[0])) {
+      similarity += ids[0] * counter.get(ids[0]);
+    }
+  }
+
+  return similarity;
 }
 
 main();
