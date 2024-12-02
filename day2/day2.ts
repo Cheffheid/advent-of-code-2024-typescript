@@ -3,9 +3,11 @@ import * as fs from "fs";
 function main() {
   const data = formatData(readInput());
 
-  const safe_reports = get_safe_reports(data);
+  const part_1_safe_reports = get_safe_reports(data, false);
+  const part_2_safe_reports = get_safe_reports(data, true);
 
-  console.log(safe_reports.length);
+  console.log(`answer for part 1: ${part_1_safe_reports.length}`);
+  console.log(`answer for part 2: ${part_2_safe_reports.length}`);
 }
 
 function readInput() {
@@ -43,9 +45,15 @@ function get_reports_from_data(data: string) {
   return reports;
 }
 
-function get_safe_reports(reports: number[][]) {
+function get_safe_reports(reports: number[][], dampener: Boolean) {
   const safe_reports = reports.filter(function (report) {
-    return report_is_safe(report);
+    let safe_report = report_is_safe(report);
+
+    if (dampener && !safe_report) {
+      safe_report = can_report_be_made_safe(report);
+    }
+
+    return safe_report;
   });
 
   return safe_reports;
@@ -78,6 +86,20 @@ function report_is_safe(report: number[]) {
   }
 
   return true;
+}
+
+function can_report_be_made_safe(report: number[]) {
+  for (let i = 0; i < report.length; i++) {
+    const dampened_report = [...report];
+    dampened_report.splice(i, 1);
+    const dampened_report_is_safe = report_is_safe(dampened_report);
+
+    if (dampened_report_is_safe) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function difference_is_safe(level1: number, level2: number) {
