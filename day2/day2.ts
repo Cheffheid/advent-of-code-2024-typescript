@@ -45,7 +45,7 @@ function get_reports_from_data(data: string) {
   return reports;
 }
 
-function get_safe_reports(reports: number[][], dampener: Boolean) {
+function get_safe_reports(reports: number[][], dampener: boolean) {
   const safe_reports = reports.filter(function (report) {
     let safe_report = report_is_safe(report);
 
