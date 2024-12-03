@@ -53,19 +53,19 @@ function get_valid_part_two_multiplications(multiplication_matches: string[]) {
   let valid = true;
   const valid_digits = [];
 
-  for (let i = 0; i < multiplication_matches.length; i++) {
-    if ("don't()" === multiplication_matches[i]) {
+  for (const match of multiplication_matches) {
+    if ("don't()" === match) {
       valid = false;
       continue;
     }
 
-    if ("do()" === multiplication_matches[i]) {
+    if ("do()" === match) {
       valid = true;
       continue;
     }
 
     if (valid) {
-      valid_digits.push(multiplication_matches[i]);
+      valid_digits.push(match);
     }
   }
 
