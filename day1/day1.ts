@@ -1,17 +1,12 @@
-import * as fs from "fs";
+import readInput from "../utils/readInput";
 
 function main() {
-  const data = formatData(readInput());
+  const data = formatData(readInput(__dirname));
 
   const distance = get_distance_from_pairs(data);
   const similarity = get_similarity_from_pairs(data);
   console.log(`answer for part 1: ${distance}`);
   console.log(`answer for part 2: ${similarity}`);
-}
-
-function readInput() {
-  const input = `${__dirname}/input.txt`;
-  return fs.readFileSync(input, { encoding: "utf8", flag: "r" });
 }
 
 /**

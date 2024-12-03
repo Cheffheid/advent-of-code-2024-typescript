@@ -1,18 +1,13 @@
-import * as fs from "fs";
+import readInput from "../utils/readInput";
 
 function main() {
-  const data = formatData(readInput());
+  const data = formatData(readInput(__dirname));
 
   const part_1_safe_reports = get_safe_reports(data, false);
   const part_2_safe_reports = get_safe_reports(data, true);
 
   console.log(`answer for part 1: ${part_1_safe_reports.length}`);
   console.log(`answer for part 2: ${part_2_safe_reports.length}`);
-}
-
-function readInput() {
-  const input = `${__dirname}/input.txt`;
-  return fs.readFileSync(input, { encoding: "utf8", flag: "r" });
 }
 
 /**
