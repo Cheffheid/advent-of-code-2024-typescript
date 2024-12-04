@@ -1,2 +1,4 @@
 node_modules
 dist
+input.txt
+git-filter-repo
